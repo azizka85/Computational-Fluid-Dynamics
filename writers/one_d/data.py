@@ -27,6 +27,71 @@ def write_data(u, t, dy, m, out_dir):
 
         file.writelines(f'{u[i]:.3f}\n' for i in range(ny))
 
+def write_non_uniform_data(u, t, dz, m, out_dir):
+    file_path = f'{out_dir}/data/data.{m:03}.vtk'
+
+    ensure_path(file_path)
+
+    nz = len(u)
+
+    with open(file_path, 'w') as file:
+        file.write('# vtk DataFile Version 3.0\n')
+        file.write(f'TIME {t:.3f}\n')
+        file.write('ASCII\n')
+        file.write('DATASET STRUCTURED_GRID\n')
+        file.write(f'DIMENSIONS 1 1 {nz}\n')
+        file.write(f'POINTS {nz} float\n')
+
+        z = 0
+
+        for i in range(nz):
+            z += dz[i]/2
+
+            file.write(f'0.0 0.0 {z:.3f}\n')
+
+            z += dz[i]/2
+
+        file.write('FIELD FieldData 1\n')
+        file.write('Time 1 1 float\n')
+        file.write(f'{t:.3f}\n')
+        file.write(f'POINT_DATA {nz}\n')
+        file.write('SCALARS u float\n')
+        file.write('LOOKUP_TABLE default\n')
+
+        file.writelines(f'{u[i]:.3f}\n' for i in range(nz))
+
+def write_viscosity(nu, dz, out_dir):
+    file_path = f'{out_dir}/viscosity.vtk'
+
+    ensure_path(file_path)
+
+    nz = len(nu)
+
+    with open(file_path, 'w') as file:
+        file.write('# vtk DataFile Version 3.0\n')
+        file.write('TIME 0\n')
+        file.write('ASCII\n')
+        file.write('DATASET STRUCTURED_GRID\n')
+        file.write(f'DIMENSIONS 1 1 {nz}\n')
+        file.write(f'POINTS {nz} float\n')
+
+        z = 0
+
+        for i in range(nz):
+            file.write(f'0.0 0.0 {z:.3f}\n')
+
+            if i < nz - 1:
+                z += dz[i]
+
+        file.write('FIELD FieldData 1\n')
+        file.write('Time 1 1 float\n')
+        file.write('0\n')
+        file.write(f'POINT_DATA {nz}\n')
+        file.write('SCALARS nu float\n')
+        file.write('LOOKUP_TABLE default\n')
+
+        file.writelines(f'{nu[i]:.3f}\n' for i in range(nz))
+
 def write_statistics(stats, out_dir):
     file_path = f'{out_dir}/convergence.csv'
 
