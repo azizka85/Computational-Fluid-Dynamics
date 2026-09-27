@@ -22,7 +22,7 @@ r = 0.3
 end_time = 0.3
 out_time_step = 0.003
 
-out_dir = f'.out/1d/couette_flow/high_order_compact/cranck_nicolson_time_variable/nu={nu}, U={u_top}, H={h}/dy={dy}, r={r}'
+out_dir = f'.out/1d/couette_flow/high_order_compact/cranck_nicolson_variable_time_step/nu={nu}, U={u_top}, H={h}/dy={dy}, r={r}'
 
 cr = r
 dt = cr*dy*dy/nu
