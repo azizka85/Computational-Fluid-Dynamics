@@ -44,7 +44,7 @@ r = 0.15
 end_time = 0.3
 out_time_step = 0.003
 
-out_dir = f'.out/2d/poiseuille_flow/peaceman_rachford/nu={nu}/dx={dx}, dy={dy}/r={r}'
+out_dir = f'.out/2d/poiseuille_flow/elliptic_domain/peaceman_rachford/nu={nu}/dx={dx}, dy={dy}/r={r}'
 
 dt = min(r*dx*dx/nu, r*dy*dy/nu)
 
@@ -61,8 +61,8 @@ w1 = np.zeros(nx*ny)
 
 for i in range(nx):
     for j in range(ny):
-        x = i*dx
-        y = j*dy
+        x = x0 + i*dx
+        y = y0 + j*dy
 
         p = j + i*ny
 
