@@ -75,7 +75,7 @@ def calc_max_abs_res(
 
     return max_res
 
-out_dir = f'.out/2d/poiseuille_flow/stead_state/elliptic_domain/richardson/dx={dx}, dy={dy}'
+out_dir = f'.out/2d/poiseuille_flow/steady_state/elliptic_domain/richardson/dx={dx}, dy={dy}'
 
 (x0, y0, l, h) = generate_domain()
 
@@ -116,3 +116,5 @@ while max_res > epsilon:
     print(f'Iteration={m}, convergence of w={max_res:.6f}')
 
     m += 1
+
+write_data(w, 0, dx, dy, 0, nx, ny, out_dir)
