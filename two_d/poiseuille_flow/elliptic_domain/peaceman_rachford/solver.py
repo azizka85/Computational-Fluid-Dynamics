@@ -26,10 +26,10 @@ def point_in_domain(x, y):
         yd = y - dy
         yu = y + dy
 
-        if xl*xl/a/a + y*y/b/b > 1 || \
-            xr*xr/a/a + y*y/b/b > 1 || \
-            x*x/a/a + yd*yd/b/b > 1 || \
-            x*x/a/a + yu*yu/b/b > 1:
+        if (xl*xl/a/a + y*y/b/b > 1 or
+            xr*xr/a/a + y*y/b/b > 1 or
+            x*x/a/a + yd*yd/b/b > 1 or
+            x*x/a/a + yu*yu/b/b > 1):
 
             return (True, True)
 
